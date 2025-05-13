@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>飞书多维表格文章助手</title>
+  <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+SC:wght@400;500;700&family=Roboto:wght@400;500;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="../css/common.css">
+  <style>
+    body {
+      width: 360px;
+      min-height: 400px;
+      max-height: 600px;
+      overflow-y: auto;
+    }
+
+    .popup-container {
+      padding: 16px;
+    }
+
+    .app-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 16px;
+    }
+
+    .app-title {
+      font-size: 18px;
+      font-weight: 500;
+      color: var(--primary-color);
+      margin: 0;
+    }
+
+    .article-card {
+      display: flex;
+      flex-direction: column;
+    }
+
+    .article-title {
+      font-size: 16px;
+      font-weight: 500;
+      margin-top: 0;
+      margin-bottom: 8px;
+      color: var(--primary-color);
+    }
+
+    .article-summary {
+      font-size: 14px;
+      color: rgba(0, 0, 0, 0.7);
+      margin-bottom: 12px;
+      max-height: 120px;
+      overflow-y: auto;
+      line-height: 1.4;
+    }
+
+    .no-articles {
+      text-align: center;
+      color: rgba(0, 0, 0, 0.5);
+      padding: 40px 0;
+    }
+
+    .loading-container {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 200px;
+    }
+
+    .error-container {
+      text-align: center;
+      color: var(--error-color);
+      padding: 40px 0;
+    }
+    
+    /* 调整按钮尺寸 */
+    .action-buttons .btn {
+      padding: 0 12px;
+      height: 32px;
+      font-size: 12px;
+    }
+  </style>
+</head>
+<body>
+  <div class="popup-container">
+    <header class="app-header">
+      <h1 class="app-title">飞书多维表格文章助手</h1>
+    </header>
+
+    <div class="action-buttons">
+      <button id="addArticleBtn" class="btn btn-primary">添加当前文章</button>
+      <button id="refreshBtn" class="btn btn-secondary">刷新文章列表</button>
+      <button id="configBtn" class="btn btn-secondary">配置插件</button>
+    </div>
+
+    <div id="messageContainer" class="status-message"></div>
+
+    <div id="articlesContainer">
+      <!-- 文章列表将通过JavaScript动态加载 -->
+      <div class="loading-container">
+        <div class="loading"></div>
+      </div>
+    </div>
+
+    <div id="paginationContainer" class="pagination">
+      <!-- 分页控件将通过JavaScript动态加载 -->
+    </div>
+  </div>
+
+  <script src="../js/popup.js"></script>
+</body>
+</html> 

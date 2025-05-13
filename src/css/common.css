@@ -1,0 +1,252 @@
+/* Material Design 风格公共样式 */
+:root {
+  --primary-color: #6200ee;
+  --primary-variant-color: #3700b3;
+  --secondary-color: #03dac6;
+  --secondary-variant-color: #018786;
+  --background-color: #ffffff;
+  --surface-color: #ffffff;
+  --error-color: #b00020;
+  --on-primary-color: #ffffff;
+  --on-secondary-color: #000000;
+  --on-background-color: #000000;
+  --on-surface-color: #000000;
+  --on-error-color: #ffffff;
+}
+
+body {
+  font-family: 'Roboto', 'Noto Sans SC', sans-serif;
+  margin: 0;
+  padding: 0;
+  background-color: var(--background-color);
+  color: var(--on-background-color);
+  font-size: 14px;
+  line-height: 1.5;
+}
+
+.container {
+  width: 100%;
+  max-width: 800px;
+  margin: 0 auto;
+  padding: 16px;
+  box-sizing: border-box;
+}
+
+/* Material 按钮样式 */
+.btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0 16px;
+  height: 36px;
+  border: none;
+  border-radius: 4px;
+  font-size: 14px;
+  font-weight: 500;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  cursor: pointer;
+  transition: background-color 0.3s, box-shadow 0.3s;
+  position: relative;
+  overflow: hidden;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.12), 0 1px 2px rgba(0, 0, 0, 0.24);
+}
+
+.btn:hover {
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.16), 0 2px 4px rgba(0, 0, 0, 0.23);
+}
+
+.btn:active {
+  box-shadow: 0 1px 2px rgba(0, 0, 0, 0.16), 0 1px 2px rgba(0, 0, 0, 0.23);
+}
+
+.btn-primary {
+  background-color: var(--primary-color);
+  color: var(--on-primary-color);
+}
+
+.btn-primary:hover {
+  background-color: var(--primary-variant-color);
+}
+
+.btn-secondary {
+  background-color: var(--secondary-color);
+  color: var(--on-secondary-color);
+}
+
+.btn-secondary:hover {
+  background-color: var(--secondary-variant-color);
+}
+
+.btn-text {
+  background-color: transparent;
+  color: var(--primary-color);
+  box-shadow: none;
+}
+
+.btn-text:hover {
+  background-color: rgba(98, 0, 238, 0.08);
+  box-shadow: none;
+}
+
+/* Material 卡片样式 */
+.card {
+  background-color: var(--surface-color);
+  border-radius: 8px;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.12), 0 1px 2px rgba(0, 0, 0, 0.24);
+  padding: 16px;
+  margin-bottom: 16px;
+  transition: box-shadow 0.3s;
+}
+
+.card:hover {
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.16), 0 2px 5px rgba(0, 0, 0, 0.23);
+}
+
+/* 表单元素 */
+.form-field {
+  display: flex;
+  flex-direction: column;
+  margin-bottom: 20px;
+  position: relative;
+}
+
+.form-field label {
+  font-size: 12px;
+  color: rgba(0, 0, 0, 0.6);
+  margin-bottom: 4px;
+}
+
+.form-field input[type=text],
+.form-field input[type=password],
+.form-field textarea {
+  border: none;
+  border-bottom: 1px solid rgba(0, 0, 0, 0.42);
+  background-color: transparent;
+  padding: 8px 0;
+  font-size: 16px;
+  transition: border-bottom-color 0.3s;
+}
+
+.form-field input[type=text]:focus,
+.form-field input[type=password]:focus,
+.form-field textarea:focus {
+  border-bottom-color: var(--primary-color);
+  outline: none;
+}
+
+/* 加载动画 */
+.loading {
+  display: inline-block;
+  width: 20px;
+  height: 20px;
+  border: 2px solid rgba(0, 0, 0, 0.1);
+  border-top-color: var(--primary-color);
+  border-radius: 50%;
+  animation: spin 1s linear infinite;
+}
+
+@keyframes spin {
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+/* 提示信息 */
+.alert {
+  padding: 8px 16px;
+  border-radius: 4px;
+  margin-bottom: 16px;
+}
+
+.alert-success {
+  background-color: #d4edda;
+  color: #155724;
+}
+
+.alert-error {
+  background-color: #f8d7da;
+  color: #721c24;
+}
+
+.alert-warning {
+  background-color: #fff3cd;
+  color: #856404;
+}
+
+.alert-info {
+  background-color: #d1ecf1;
+  color: #0c5460;
+}
+
+/* 卡片标题 */
+.card-title {
+  font-size: 18px;
+  font-weight: 500;
+  margin-top: 0;
+  margin-bottom: 8px;
+}
+
+/* 卡片内容 */
+.card-content {
+  color: rgba(0, 0, 0, 0.7);
+}
+
+/* 卡片操作区 */
+.card-actions {
+  display: flex;
+  justify-content: flex-end;
+  margin-top: 8px;
+}
+
+/* 分页控件 */
+.pagination {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-top: 20px;
+}
+
+.pagination button {
+  width: 36px;
+  height: 36px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin: 0 4px;
+  background-color: transparent;
+  color: var(--primary-color);
+  border: none;
+  cursor: pointer;
+  transition: background-color 0.3s;
+}
+
+.pagination button:hover {
+  background-color: rgba(98, 0, 238, 0.08);
+}
+
+.pagination button.active {
+  background-color: var(--primary-color);
+  color: var(--on-primary-color);
+}
+
+.pagination button:disabled {
+  color: rgba(0, 0, 0, 0.26);
+  cursor: not-allowed;
+}
+
+/* 顶部按钮组 */
+.action-buttons {
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 16px;
+}
+
+.action-buttons .btn {
+  margin-right: 8px;
+}
+
+.action-buttons .btn:last-child {
+  margin-right: 0;
+} 

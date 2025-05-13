@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>飞书多维表格文章助手 - 配置</title>
+  <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+SC:wght@400;500;700&family=Roboto:wght@400;500;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="../css/common.css">
+  <style>
+    body {
+      width: 100%;
+      min-height: 100vh;
+    }
+    .container {
+      padding: 32px;
+      max-width: 600px;
+    }
+    h1 {
+      font-size: 24px;
+      margin-bottom: 24px;
+      color: var(--primary-color);
+    }
+    .form-actions {
+      display: flex;
+      justify-content: flex-end;
+      margin-top: 24px;
+    }
+    .status-message {
+      margin-top: 16px;
+      min-height: 24px;
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <h1>配置飞书应用信息</h1>
+    
+    <form id="configForm">
+      <div class="form-field">
+        <label for="appSecret">飞书应用Secret</label>
+        <input type="text" id="appSecret" name="appSecret" placeholder="请输入飞书应用Secret" required>
+      </div>
+      
+      <div class="form-field">
+        <label for="appToken">飞书多维表格app_token</label>
+        <input type="text" id="appToken" name="appToken" placeholder="请输入飞书多维表格app_token" required>
+      </div>
+      
+      <div class="form-field">
+        <label for="tableId">飞书多维表格table_id</label>
+        <input type="text" id="tableId" name="tableId" placeholder="请输入飞书多维表格table_id" required>
+      </div>
+      
+      <div class="form-actions">
+        <button type="submit" class="btn btn-primary">保存配置</button>
+      </div>
+    </form>
+    
+    <div class="status-message" id="statusMessage"></div>
+  </div>
+
+  <script src="../js/options.js"></script>
+</body>
+</html> 
