@@ -4,6 +4,8 @@
 let currentPage = 1;
 const PAGE_SIZE = 5;
 let totalArticles = 0;
+let nextPageToken = ''; // 存储下一页的令牌
+let pageTokenMap = {}; // 存储每页对应的page_token
 
 document.addEventListener('DOMContentLoaded', () => {
   // 获取DOM元素
@@ -16,11 +18,11 @@ document.addEventListener('DOMContentLoaded', () => {
   
   // 绑定事件
   addArticleBtn.addEventListener('click', addCurrentArticle);
-  refreshBtn.addEventListener('click', () => fetchArticles(1));
+  refreshBtn.addEventListener('click', () => fetchArticles(1, ''));
   configBtn.addEventListener('click', openOptionsPage);
   
   // 初始加载文章
-  fetchArticles(currentPage);
+  fetchArticles(currentPage, '');
   
   // 添加当前文章
   async function addCurrentArticle() {
@@ -52,7 +54,7 @@ document.addEventListener('DOMContentLoaded', () => {
           
           if (response.success) {
             showMessage(response.message, 'success');
-            fetchArticles(currentPage); // 刷新文章列表
+            fetchArticles(1, ''); // 刷新文章列表，从第一页开始
           } else {
             showMessage(response.message, 'error');
           }
@@ -67,7 +69,7 @@ document.addEventListener('DOMContentLoaded', () => {
   }
   
   // 获取文章列表
-  function fetchArticles(page) {
+  function fetchArticles(page, pageToken) {
     currentPage = page;
     
     // 显示加载中
@@ -83,12 +85,20 @@ document.addEventListener('DOMContentLoaded', () => {
       {
         type: 'getArticles',
         page: page,
-        pageSize: PAGE_SIZE
+        pageSize: PAGE_SIZE,
+        pageToken: pageToken
       },
       (response) => {
         if (response.success) {
           renderArticles(response.data.articles);
           totalArticles = response.data.total;
+          
+          // 保存当前页的token和下一页的token
+          if (response.data.pageToken) {
+            nextPageToken = response.data.pageToken;
+            pageTokenMap[page + 1] = response.data.pageToken;
+          }
+          
           renderPagination(page, Math.ceil(totalArticles / PAGE_SIZE));
         } else {
           showError(response.message);
@@ -141,7 +151,9 @@ document.addEventListener('DOMContentLoaded', () => {
     prevBtn.disabled = currentPage === 1;
     prevBtn.addEventListener('click', () => {
       if (currentPage > 1) {
-        fetchArticles(currentPage - 1);
+        // 使用上一页的token
+        const prevPageToken = pageTokenMap[currentPage - 1] || '';
+        fetchArticles(currentPage - 1, prevPageToken);
       }
     });
     paginationContainer.appendChild(prevBtn);
@@ -161,7 +173,9 @@ document.addEventListener('DOMContentLoaded', () => {
       pageBtn.className = i === currentPage ? 'active' : '';
       pageBtn.addEventListener('click', () => {
         if (i !== currentPage) {
-          fetchArticles(i);
+          // 使用存储的token进行分页
+          const token = pageTokenMap[i] || '';
+          fetchArticles(i, token);
         }
       });
       paginationContainer.appendChild(pageBtn);
@@ -170,10 +184,10 @@ document.addEventListener('DOMContentLoaded', () => {
     // 下一页按钮
     const nextBtn = document.createElement('button');
     nextBtn.textContent = '»';
-    nextBtn.disabled = currentPage === totalPages;
+    nextBtn.disabled = currentPage === totalPages || !nextPageToken;
     nextBtn.addEventListener('click', () => {
-      if (currentPage < totalPages) {
-        fetchArticles(currentPage + 1);
+      if (currentPage < totalPages && nextPageToken) {
+        fetchArticles(currentPage + 1, nextPageToken);
       }
     });
     paginationContainer.appendChild(nextBtn);
@@ -229,5 +243,20 @@ document.addEventListener('DOMContentLoaded', () => {
       .replace(/>/g, '&gt;')
       .replace(/"/g, '&quot;')
       .replace(/'/g, '&#039;');
+  }
+  
+  // 检查配置状态
+  function checkConfig() {
+    chrome.storage.local.get(['feishuAppId', 'feishuAppSecret', 'feishuAppToken', 'feishuTableId'], function(config) {
+      const configStatus = document.getElementById('config-status');
+      
+      if (config.feishuAppId && config.feishuAppSecret && config.feishuAppToken && config.feishuTableId) {
+        configStatus.textContent = '已配置';
+        configStatus.className = 'status-ok';
+      } else {
+        configStatus.textContent = '未配置';
+        configStatus.className = 'status-error';
+      }
+    });
   }
 }); 

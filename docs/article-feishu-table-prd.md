@@ -1,6 +1,7 @@
 # 插件功能
 ## 插件配置页面
 1.  提供一个**独立的Chrome扩展选项页面 (options_page)**，用于保存飞书应用所需的配置信息，包括：
+    * 飞书应用id
     * 飞书应用Secret
     * 飞书多维表格app_token
     * 飞书多维表格table_id
@@ -28,9 +29,9 @@
 *   **错误处理**: 当调用飞书API失败时（例如网络错误、配置错误、权限问题等），应在插件界面给出用户友好的错误提示信息（例如："加载失败，请检查网络或配置"）。初期版本暂不实现详细的错误日志记录功能。
 *   查询接口示例
 ```
-curl -i -X POST 'https://open.feishu.cn/open-apis/bitable/v1/apps/PWCjbSYSMaKt6VsxZkscaNxEnub/tables/tbl7dxnpUeYDJyvx/records/search?page_size=20' \
+curl -i -X POST 'https://open.feishu.cn/open-apis/bitable/v1/apps/PWCjbSYSMaKt6VsxZkscaNxEnub/tables/tbl7dxnpUeYDJyvx/records/search?page_size=20&page_token=1' \
 -H 'Content-Type: application/json' \
--H 'Authorization: Bearer 飞书应用Secret' \
+-H 'Authorization: Bearer 飞书应用tenant_access_token' \
 -d '{
         "sort": [
                 {
@@ -151,7 +152,7 @@ curl -i -X POST 'https://open.feishu.cn/open-apis/bitable/v1/apps/PWCjbSYSMaKt6V
 ```
 curl -i -X POST 'https://open.feishu.cn/open-apis/bitable/v1/apps/PWCjbSYSMaKt6VsxZkscaNxEnub/tables/tbl7dxnpUeYDJyvx/records' \
 -H 'Content-Type: application/json' \
--H 'Authorization: Bearer 飞书应用Secret' \
+-H 'Authorization: Bearer 飞书应用tenant_access_token' \
 -d '{
         "fields": {
                 "链接": {
@@ -160,6 +161,22 @@ curl -i -X POST 'https://open.feishu.cn/open-apis/bitable/v1/apps/PWCjbSYSMaKt6V
                 }
         }
 }'
+```
+- 获取tenant_access_token接口示例
+```
+HTTP URL: https://open.feishu.cn/open-apis/auth/v3/tenant_access_token/internalHTTP Method: POST
+{
+    "app_id": "飞书应用ID",
+    "app_secret": "飞书应用Secret"
+}
+
+接口响应示例：
+{
+    "code": 0,
+    "msg": "ok",
+    "tenant_access_token": "tenant_access_token",
+    "expire": 7200
+}
 ```
 
 ## 视觉要求

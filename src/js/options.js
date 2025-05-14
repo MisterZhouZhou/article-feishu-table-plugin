@@ -15,7 +15,11 @@ document.addEventListener('DOMContentLoaded', () => {
   
   // 加载保存的配置
   function loadSavedConfig() {
-    chrome.storage.local.get(['feishuAppSecret', 'feishuAppToken', 'feishuTableId'], (result) => {
+    chrome.storage.local.get(['feishuAppId', 'feishuAppSecret', 'feishuAppToken', 'feishuTableId'], (result) => {
+      if (result.feishuAppId) {
+        document.getElementById('appId').value = result.feishuAppId;
+      }
+      
       if (result.feishuAppSecret) {
         document.getElementById('appSecret').value = result.feishuAppSecret;
       }
@@ -32,17 +36,19 @@ document.addEventListener('DOMContentLoaded', () => {
   
   // 保存配置
   function saveConfig() {
+    const appId = document.getElementById('appId').value.trim();
     const appSecret = document.getElementById('appSecret').value.trim();
     const appToken = document.getElementById('appToken').value.trim();
     const tableId = document.getElementById('tableId').value.trim();
     
-    if (!appSecret || !appToken || !tableId) {
+    if (!appId || !appSecret || !appToken || !tableId) {
       showStatusMessage('请填写所有必填字段', 'error');
       return;
     }
     
     // 保存到Chrome存储
     chrome.storage.local.set({
+      feishuAppId: appId,
       feishuAppSecret: appSecret,
       feishuAppToken: appToken,
       feishuTableId: tableId
