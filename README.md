@@ -16,7 +16,8 @@
 2. 飞书应用Secret：您的飞书应用的访问密钥
 3. 飞书多维表格app_token：多维表格的应用Token
 4. 飞书多维表格table_id：目标多维表格的ID
-使用插件的小伙伴最好先看一遍工作流搭建文章，搭建流程共2篇， 最好将第一篇的环境配置相关的内容跑通：
+
+**使用插件的小伙伴最好先看一遍工作流搭建文章，搭建流程共2篇， 最好将第一篇的环境配置相关的内容跑通**：
 - https://mp.weixin.qq.com/s/uQACg_qEAmLK3O7uh2zwgg
 - https://mp.weixin.qq.com/s/FaW8mMTuuXYoxSOIjvF9UQ
 
